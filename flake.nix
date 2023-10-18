@@ -1,28 +1,38 @@
 {
-  description = "Application packaged using poetry2nix";
+  description = "A simple Poetry project";
 
+  inputs.nixpkgs.url = "github:nixos/nixpkgs/nixos-23.05";
   inputs.flake-utils.url = "github:numtide/flake-utils";
-  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-  inputs.poetry2nix = {
-    url = "github:nix-community/poetry2nix/master";
-    inputs.nixpkgs.follows = "nixpkgs";
-  };
+  inputs.poetry2nix.url = "github:nix-community/poetry2nix";
 
-  outputs = { self, nixpkgs, flake-utils, poetry2nix }:
-    flake-utils.lib.eachDefaultSystem (system:
-      let
-        # see https://github.com/nix-community/poetry2nix/tree/master#api for more functions and examples.
-        inherit (poetry2nix.legacyPackages.${system}) mkPoetryApplication;
-        pkgs = nixpkgs.legacyPackages.${system};
-      in
-      {
-        packages = {
-          myapp = mkPoetryApplication { projectDir = self; };
-          default = self.packages.${system}.myapp;
-        };
+  outputs = { self, nixpkgs, flake-utils, poetry2nix }: flake-utils.lib.eachDefaultSystem (system:
+    let 
+      pkgs = import nixpkgs { inherit system; };
+    in
+    {
+      devShell = pkgs.mkShell {
+        buildInputs = [
+          pkgs.python3
+          pkgs.poetry
+          pkgs.zlib
+          pkgs.libstdcxx5
+          pkgs.gcc
 
-        devShells.default = pkgs.mkShell {
-          packages = [ poetry2nix.packages.${system}.poetry ];
+        ];
+        shellHook = ''
+          export PYTHON_KEYRING_BACKEND=keyring.backends.null.Keyring
+          export LD_LIBRARY_PATH="${pkgs.gcc.cc.lib}/lib:${pkgs.zlib}/lib:$LD_LIBRARY_PATH"
+        '';
+      };
+
+      packages = {
+        hello-world = poetry2nix.mkPoetryApplication {
+          projectDir = ./.;
+          python = pkgs.python3;
         };
-      });
+      };
+
+      defaultPackage = self.packages.${system}.hello-world;
+    }
+  );
 }
