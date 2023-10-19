@@ -8,7 +8,6 @@
   outputs = { self, nixpkgs, flake-utils, poetry2nix }: flake-utils.lib.eachDefaultSystem (system:
     let 
       pkgs = import nixpkgs { inherit system; };
-      hello_py = "./hello.py";
       startPlutoScript = pkgs.writeText "start_pluto.jl" ''
         using Pkg
         Pkg.add("Pluto")
@@ -63,7 +62,7 @@
           python = pkgs.python3;
         };
         run-hello-world = pkgs.writeShellScriptBin "run-hello-world" ''
-          ${pkgs.poetry}/bin/poetry run python ${hello_py}
+          ${pkgs.poetry}/bin/poetry run python ${./hello.py}
         '';
         pluto = pkgs.writeShellScriptBin "pluto" ''
           ${pkgs.julia}/bin/julia ${startPlutoScript}
