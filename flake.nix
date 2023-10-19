@@ -17,11 +17,16 @@
           pkgs.zlib
           pkgs.libstdcxx5
           pkgs.gcc
+          pkgs.julia
 
         ];
         shellHook = ''
           export PYTHON_KEYRING_BACKEND=keyring.backends.null.Keyring
           export LD_LIBRARY_PATH="${pkgs.gcc.cc.lib}/lib:${pkgs.zlib}/lib:$LD_LIBRARY_PATH"
+          export PYTHON="${pkgs.python3}/bin/python"
+          export JULIA_CONDAPKG_BACKEND="Null"
+          export JULIA_PYTHONCALL_EXE="${pkgs.python3}/bin/python"
+          zsh
         '';
       };
 

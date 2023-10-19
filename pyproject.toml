@@ -8,6 +8,11 @@ authors = ["Your Name <you@example.com>"]
 python = "^3.10"
 matplotlib = "*"
 pandas = "*"
+requests = "^2.31.0"
+pillow = "^10.1.0"
+pyjulia = "^0.0.6"
+juliacall = "^0.9.14"
+julia = "^0.6.1"
 
 
 [build-system]
