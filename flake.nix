@@ -35,6 +35,9 @@
           projectDir = ./.;
           python = pkgs.python3;
         };
+        run-hello-world = pkgs.writeShellScriptBin "run-hello-world" ''
+          ${pkgs.python3}/bin/python ${./hello.py}
+        '';
       };
 
       defaultPackage = self.packages.${system}.hello-world;
