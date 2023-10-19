@@ -1,5 +1,5 @@
 {
-  description = "A simple Poetry project";
+  description = "A simple Poetry project that calls Julia!";
 
   inputs.nixpkgs.url = "github:nixos/nixpkgs/nixos-23.05";
   inputs.flake-utils.url = "github:numtide/flake-utils";
