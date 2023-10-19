@@ -36,7 +36,7 @@
           python = pkgs.python3;
         };
         run-hello-world = pkgs.writeShellScriptBin "run-hello-world" ''
-          ${pkgs.python3}/bin/python ${./hello.py}
+          ${pkgs.poetry}/bin/poetry run python ${./hello.py}
         '';
       };
 
