@@ -1,3 +1,4 @@
 [deps]
 CondaPkg = "992eb4ea-22a4-4c89-a5bb-47a3300528ab"
+Pluto = "c3e4b0f8-55cb-11ea-2926-15256bba5781"
 PythonCall = "6099a3de-0909-46bc-b1f4-468b9a2dfc0d"

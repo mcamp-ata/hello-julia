@@ -8,6 +8,32 @@
   outputs = { self, nixpkgs, flake-utils, poetry2nix }: flake-utils.lib.eachDefaultSystem (system:
     let 
       pkgs = import nixpkgs { inherit system; };
+      projectDir = ./.;
+      startPlutoScript = pkgs.writeText "start_pluto.jl" ''
+        using Pkg
+        Pkg.activate("$(realpath("${projectDir}"))")
+        using Pluto
+        using ArgParse
+
+        function main()
+            s = ArgParseSettings()
+
+            @add_arg_table s begin
+                "--port", "-p"
+                    arg_type = Int
+                    default = 1234
+                    help = "Port number to start Pluto on."
+            end
+
+            parsed_args = parse_args(ARGS, s)
+
+            port = parsed_args["port"]
+
+            Pluto.run(port=port)
+        end
+
+        main()
+      '';
     in
     {
       devShell = pkgs.mkShell {
@@ -37,6 +63,9 @@
         };
         run-hello-world = pkgs.writeShellScriptBin "run-hello-world" ''
           ${pkgs.poetry}/bin/poetry run python ${./hello.py}
+        '';
+        pluto = pkgs.writeShellScriptBin "pluto" ''
+          ${pkgs.julia}/bin/julia ${startPlutoScript}
         '';
       };
 
