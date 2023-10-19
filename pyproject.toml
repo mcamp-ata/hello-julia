@@ -14,7 +14,10 @@ pyjulia = "^0.0.6"
 juliacall = "^0.9.14"
 julia = "^0.6.1"
 
+[tool.poetry.scripts]
+poetry = "poetry.console.application:hello"
 
 [build-system]
 requires = ["poetry-core>=1.1"]
 build-backend = "poetry.core.masonry.api"
+
