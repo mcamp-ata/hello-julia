@@ -8,10 +8,10 @@
   outputs = { self, nixpkgs, flake-utils, poetry2nix }: flake-utils.lib.eachDefaultSystem (system:
     let 
       pkgs = import nixpkgs { inherit system; };
-      projectDir = ./.;
       startPlutoScript = pkgs.writeText "start_pluto.jl" ''
         using Pkg
-        Pkg.activate("$(realpath("${projectDir}"))")
+        Pkg.add("Pluto")
+        Pkg.add("ArgParse")
         using Pluto
         using ArgParse
 
