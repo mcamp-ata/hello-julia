@@ -1,0 +1,61 @@
+# https://numtide.github.io/devshell
+[[commands]]
+package = "_1password"
+category = "general commands"
+
+[[commands]]
+package = "azure-cli"
+category = "general commands"
+
+[[commands]]
+package = "docker"
+category = "general commands"
+
+[[commands]]
+package = "docker-compose"
+category = "general commands"
+
+[[commands]]
+package = "postgresql"
+category = "Data Science"
+
+[[commands]]
+package = "python3"
+category = "Data Science"
+
+[[commands]]
+package = "poetry"
+category = "Data Science"
+
+[[commands]]
+package = "julia"
+category = "Data Science"
+
+[devshell]
+packages = [
+  "libstdcxx5",
+  "zlib",
+  "gcc"
+]
+
+
+[[env]]
+name = "PYTHON_KEYRING_BACKEND"
+value = "keyring.backends.null.Keyring"
+
+[[env]]
+name = "LD_LIBRARY_PATH"
+value = "${pkgs.gcc.cc.lib}/lib:${pkgs.zlib}/lib:$LD_LIBRARY_PATH"
+
+[[env]]
+name = "PYTHON"
+value = "${pkgs.python3}/bin/python"
+
+[[env]]
+name = "JULIA_CONDAPKG_BACKEND"
+value = "Null"
+
+[[env]]
+name = "JULIA_PYTHONCALL_EXE"
+value = "${pkgs.python3}/bin/python"
+
