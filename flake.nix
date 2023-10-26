@@ -123,6 +123,24 @@
             '';
           }
         ];
+        env = [
+          {
+            name = "LD_LIBRARY_PATH";
+            value = "${pkgs.gcc.cc.lib}/lib:${pkgs.zlib}/lib:$LD_LIBRARY_PATH";
+          }
+          {
+            name = "PYTHON";
+            value = "${pkgs.python3}/bin/python";
+          }
+          {
+            name = "JULIA_CONDAPKG_BACKEND";
+            value = "Null";
+          }
+          {
+            name = "JULIA_PYTHONCALL_EXE";
+            value = "${pkgs.python3}/bin/python";
+          }
+        ];
       });
   });
 }

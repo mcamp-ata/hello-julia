@@ -43,19 +43,3 @@ packages = [
 name = "PYTHON_KEYRING_BACKEND"
 value = "keyring.backends.null.Keyring"
 
-[[env]]
-name = "LD_LIBRARY_PATH"
-value = "${pkgs.gcc.cc.lib}/lib:${pkgs.zlib}/lib:$LD_LIBRARY_PATH"
-
-[[env]]
-name = "PYTHON"
-value = "${pkgs.python3}/bin/python"
-
-[[env]]
-name = "JULIA_CONDAPKG_BACKEND"
-value = "Null"
-
-[[env]]
-name = "JULIA_PYTHONCALL_EXE"
-value = "${pkgs.python3}/bin/python"
-
