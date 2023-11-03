@@ -27,15 +27,12 @@ category = "Data Science"
 package = "poetry"
 category = "Data Science"
 
-[[commands]]
-package = "julia"
-category = "Data Science"
-
 [devshell]
 packages = [
   "libstdcxx5",
   "zlib",
-  "gcc"
+  "gcc",
+  "glib"
 ]
 
 
